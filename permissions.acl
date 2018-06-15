@@ -58,12 +58,12 @@ rule ItAdminCanManageOrders {
     action: ALLOW
 }
 
-rule ItAdminUpdateOrder {
+rule ItAdminIssueProductAndUpdateOrderStatus {
     description: "Allow ItAdmin to view and update their own orders"
     participant(m): "org.synerzip.firstcomposer.ItAdmin"
-    operation: ALL
+    operation: CREATE, READ
     resource(o): "org.synerzip.firstcomposer.IssueProductAndUpdateOrderStatus"
-    condition: (o.orderStatus == 'PLACED' || o.orderStatus == 'FULFILLED')
+    condition: (o.issuer.getIdentifier() == m.getIdentifier())
     action: ALLOW
 }
 

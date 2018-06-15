@@ -1,0 +1,82 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Sample business network definition.
+ */
+namespace org.synerzip.firstcomposer
+
+enum ProductStatus {
+    o AVAILABLE
+    o ISSUED
+}
+
+enum ProductType {
+    o LAPTOP
+    o DESKTOP
+    o MOBILE
+}
+
+abstract participant Employee identified by employeeId {
+  o String employeeId
+  o String firstName
+  o String lastName
+  o String email
+}
+
+asset Product identified by productId {
+  o String productId
+  o ProductType productType
+  o ProductStatus status default='AVAILABLE'
+  --> User assignedTo optional
+  --> ItAdmin issuedBy optional
+
+}
+  
+participant Regulator identified by regId{
+  o String regId
+}
+  
+participant User extends Employee {
+  o String role default='USER'
+}
+  
+participant ItAdmin extends Employee {
+  o String role default='IT_ADMIN'
+}
+  
+enum OrderStatus {
+  o PLACED
+  o FULFILLED
+}
+
+asset Order identified by orderId {
+  o String orderId
+  o ProductType productType
+  o OrderStatus orderStatus
+  --> User orderer
+  --> ItAdmin issuer optional
+}
+
+transaction PlaceOrder {
+  o String orderId
+  o ProductType productType
+  --> User orderer
+}
+
+transaction IssueProductAndUpdateOrderStatus {
+  --> Order order  
+  --> ItAdmin issuer
+}
+  

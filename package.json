@@ -1,0 +1,29 @@
+{
+  "name": "my-composer",
+  "version": "0.0.1",
+  "description": "First composer buiseness network",
+  "scripts": {
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/my-composer.bna",
+    "pretest": "npm run lint",
+    "lint": "eslint .",
+    "test": "nyc mocha -t 0 test/*.js && cucumber-js"
+  },
+  "author": "Prajyot Rajigare",
+  "email": "prajyot.rajiagre27@gmail.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "^0.19.1",
+    "composer-cli": "^0.19.1",
+    "composer-client": "^0.19.1",
+    "composer-common": "^0.19.1",
+    "composer-connector-embedded": "^0.19.1",
+    "composer-cucumber-steps": "^0.19.1",
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "cucumber": "^2.2.0",
+    "eslint": "latest",
+    "nyc": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}

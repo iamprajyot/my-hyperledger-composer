@@ -1,7 +1,0 @@
-query getAvailableProductByType {
-  description: "Get avaialble product by given type"
-  statement:
-      SELECT org.synerzip.firstcomposer.Product
-        WHERE ((productType == _$type) AND (status == 'AVAILABLE'))
-          LIMIT 1
-}
